@@ -14,6 +14,15 @@ void SingleHumidistat::update() {
 	// Actuate solenoids (convert normalised double CV to integer PWM value)
 	analogWrite(pins_solenoid[0], static_cast<int>(cv * ipow(2, pwmRes)));
 	analogWrite(pins_solenoid[1], static_cast<int>((pid.cvMin + 1 - cv) * ipow(2, pwmRes)));
+
+#if defined(ARDUINO_TEENSYLC)
+	// Output temperature to DAC (Teensy LC only, any supported sensor)
+	double tempC = getTemperature();
+	int dacValue = (int)((tempC - config::TEMP_DAC_MIN) * config::DAC_MAX / (config::TEMP_DAC_MAX - config::TEMP_DAC_MIN));
+	if (dacValue < 0) dacValue = 0;
+	if (dacValue > config::DAC_MAX) dacValue = config::DAC_MAX;
+	analogWrite(config::PIN_DAC, dacValue);
+#endif
 }
 
 void SingleHumidistat::updatePIDParameters() {

@@ -97,7 +97,41 @@ namespace config {
 	const uint8_t PIN_T4 = A4;
 	///@}
 #endif
-#if defined(ARDUINO_TEENSYLC) || defined(ARDUINO_TEENSY40)
+#if defined(ARDUINO_TEENSYLC)
+	const uint8_t PIN_DHT = 17;
+	const uint8_t PIN_BTN = A0;
+	const uint8_t PIN_S1 = 3;
+	const uint8_t PIN_S2 = 4;
+	const uint8_t PIN_F1 = A1;
+	const uint8_t PIN_F2 = A2;
+
+	/// ST7920 LCD pins
+	const uint8_t PIN_LCD_CS = 10;
+	const uint8_t PIN_LCD_MOSI = 11;
+	const uint8_t PIN_LCD_SCLK = 13;
+
+	/// @name Thermistor pins
+	///@{
+	const uint8_t PIN_T1 = A6;
+	const uint8_t PIN_T2 = A7;
+	const uint8_t PIN_T3 = A8;
+	const uint8_t PIN_T4 = A9;
+	///@}
+
+	/// @name DAC Output (Teensy LC only)
+	///@{
+	// Teensy LC has a true DAC on pin A12 (Arduino pin 22)
+	const uint8_t PIN_DAC = A12;
+	const int DAC_RESOLUTION = 12; // bits
+	const int DAC_MAX = 4095;      // 12-bit max value
+	// Temperature range for mapping (adjust as needed)
+	const double TEMP_DAC_MIN = 0.0;
+	const double TEMP_DAC_MAX = 50.0;
+	// Enable/disable DAC output feature
+	const bool ENABLE_DAC_OUTPUT = true;
+	///@}
+#endif
+#if defined(ARDUINO_TEENSY40)
 	const uint8_t PIN_DHT = 17;
 	const uint8_t PIN_BTN = A0;
 	const uint8_t PIN_S1 = 3;
